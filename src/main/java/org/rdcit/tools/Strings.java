@@ -8,7 +8,6 @@ package org.rdcit.tools;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static org.rdcit.tools.Statics.SUM_PATTERN_MATCHER;
 
 /**
  *

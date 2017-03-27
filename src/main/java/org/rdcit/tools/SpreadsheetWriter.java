@@ -40,7 +40,6 @@ public class SpreadsheetWriter {
         try {
             fis = new FileInputStream(file);
             workbook = WorkbookFactory.create(fis);
-            System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  " + fis.toString());
         } catch (IOException | InvalidFormatException ex) {
             System.out.println(ex.getMessage());
         }

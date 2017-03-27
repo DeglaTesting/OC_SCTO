@@ -184,7 +184,6 @@ public class Survey {
     void setRelevanceCell(int readerRowNum, int writterRowNum) {
         String relevance = "selected(${";
         String sConditionDisplay = inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_SIMPLE_CONDITION_CELL);
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  sConditionDisplay " + sConditionDisplay);
         if (notEmpty(sConditionDisplay) && !sConditionDisplay.equals("null")) {
             String[] arConditiondisplay = sConditionDisplay.split(",");
             relevance = relevance.concat(arConditiondisplay[0] + "},\'" + arConditiondisplay[1] + "\')");
