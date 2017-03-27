@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>OC - Survey CTO</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="2" style="margin-top:50px;">
+                <h3 style="color: #1565C0;">Please choose the appropriate procedure:</h3>
+                <p:selectOneMenu widgetVar="selectMethod" value="#{Method.calledMethod}" valueChangeListener="#{Method.valueChangeMethod}" 
+                                 onchange="submit()" style="margin-right:50px;">
+                    <f:selectItem itemLabel="Select one" itemValue=""  />
+                    <f:selectItem itemLabel="OC -> SCTO" itemValue="OC_SCTO"  />
+                    <f:selectItem itemLabel="SCTO -> OC" itemValue="SCTO_OC" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+        <h:form enctype="multipart/form-data" style="margin-top:50px;">
+            <p:fileUpload id="fileUpload" widgetVar="fileUpload"  fileUploadListener="#{FileUploadView.upload}" multiple="false"
+                          allowTypes="/(\.|\/)(xls|xlsx)$/" update="@widgetVar(convertBt)"/>
+            <p:growl autoUpdate="true" showDetail="true"/>
+        </h:form>
+        <h:form style="margin-top:50px;">
+            <p:commandButton widgetVar="convertBt" type="submit" value="Convert" ajax="false" action="#{Converter.convert()}"
+                             update="@widgetVar(dowload)" disabled="#{FileUploadView.disableConvertBt}"/>
+        </h:form>
+        <h:form style="margin-top:50px;">
+            <h3 style="color: #1565C0; text-decoration: underline">Click on Download, if you want to get the generated file.</h3>
+            <p:commandButton widgetVar="dowload" value="Download" ajax="false" disabled="#{Converter.disableDownloadBt}"
+                             type="submit" icon="ui-icon-arrowthick-1-s">
+                <p:fileDownload value="#{FileDownloadView.download()}"/>
+            </p:commandButton>
+        </h:form>
+    </h:body>
+</html>
+
