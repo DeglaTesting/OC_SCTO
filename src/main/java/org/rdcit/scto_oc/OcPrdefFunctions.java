@@ -6,6 +6,7 @@
 package org.rdcit.scto_oc;
 
 import static org.rdcit.tools.Statics.SUM_PATTERN_MATCHER;
+import static org.rdcit.scto_oc.OcPrdefFunctions.*;
 import static org.rdcit.tools.DataType.isInteger;
 import static org.rdcit.tools.Strings.*;
 import org.rdcit.tools.Log;

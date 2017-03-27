@@ -10,6 +10,8 @@ import org.rdcit.tools.SpreadsheetReader;
 import org.rdcit.tools.SpreadsheetWriter;
 import static org.rdcit.tools.Statics.*;
 import static org.rdcit.tools.Strings.splitWithEscape;
+import static org.rdcit.tools.Strings.notEmpty;
+import static org.rdcit.oc_scto.SctoPrdefFunctions.*;
 
 /**
  *
@@ -78,7 +80,7 @@ public class Survey {
         setRelevanceCell(readerRowNum, writterRowNum);
     }
 
-    void setResponseTypeCell(String itemResponseType, String itemName, int crfRowNum) {
+    void setResponseTypeCell(String itemResponseType, String itemName, int readderRowNum, int writterRowNum) {
         if (itemResponseType.equals("text")) {
             setTextResponseType(inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_DATA_TYPE_CELL), writterRowNum);
         } else if (itemResponseType.equals("textarea")) {
@@ -183,6 +185,7 @@ public class Survey {
     void setRelevanceCell(int readerRowNum, int writterRowNum) {
         String relevance = "selected(${";
         String sConditionDisplay = inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_SIMPLE_CONDITION_CELL);
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  sConditionDisplay " + sConditionDisplay);
         if (notEmpty(sConditionDisplay) && !sConditionDisplay.equals("null")) {
             String[] arConditiondisplay = sConditionDisplay.split(",");
             relevance = relevance.concat(arConditiondisplay[0] + "},\'" + arConditiondisplay[1] + "\')");

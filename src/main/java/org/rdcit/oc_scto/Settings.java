@@ -30,7 +30,7 @@ public class Settings {
 
     void setSettingsSheet() {
         String crfame = inputFileReader.readCell(CRF_SHEET, 1, CRF_CRF_NAME_CELL);
-        outputFileWriter.writeNewCell(SETTINGS_SHEET, 1, SETTINGS_FORM_TITLE_CELL, crfame);
-        outputFileWriter.writeNewCell(SETTINGS_SHEET, 1, SETTINGS_FORM_ID_CELL, crfame + "_" + inputFileReader.readCell(CRF_SHEET, 1, CRF_CRF_VERSION_CELL));
+        outputFileWriter.appendNewCell(SETTINGS_SHEET, SETTINGS_FORM_TITLE_CELL, crfame);
+        outputFileWriter.appendNewCell(SETTINGS_SHEET, SETTINGS_FORM_ID_CELL, crfame + "_" + inputFileReader.readCell(CRF_SHEET, 1, CRF_CRF_VERSION_CELL));
     }
 }

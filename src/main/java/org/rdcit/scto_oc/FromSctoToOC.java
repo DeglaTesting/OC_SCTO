@@ -54,7 +54,7 @@ public class FromSctoToOC {
     }
 
     public static void main(String[] args) {
-        FromSctoToOC fromSctoToOC = new FromSctoToOC(new File(workingRepository +"BASIC_TOSCTO.xlsx"));
+        FromSctoToOC fromSctoToOC = new FromSctoToOC(new File(workingRepository +"Dummy.xlsx"));
         fromSctoToOC.convert();
     }
 }

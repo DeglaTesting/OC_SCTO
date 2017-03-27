@@ -17,8 +17,8 @@ public class Statics {
 
     public static final String workingRepository;
     static{
-     //workingRepository = Statics.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    workingRepository = Statics.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("Statics.class", "");
+    workingRepository = Statics.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    //workingRepository = Statics.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("Statics.class", "");
     }
     public static final File OC_DESIGN_TEMPLATE = new File(workingRepository+"OC_Design_Template.xls");
     public static final File SCTO_DESIGN_TEMPLATE = new File(workingRepository+"SCTO_Design_Template.xlsx");
