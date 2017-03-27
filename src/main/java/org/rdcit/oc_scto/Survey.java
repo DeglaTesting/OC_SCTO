@@ -9,8 +9,7 @@ import java.io.File;
 import org.rdcit.tools.SpreadsheetReader;
 import org.rdcit.tools.SpreadsheetWriter;
 import static org.rdcit.tools.Statics.*;
-import static org.rdcit.tools.Strings.splitWithEscape;
-import static org.rdcit.tools.Strings.notEmpty;
+import static org.rdcit.tools.Strings.*;
 import static org.rdcit.oc_scto.SctoPrdefFunctions.*;
 
 /**
