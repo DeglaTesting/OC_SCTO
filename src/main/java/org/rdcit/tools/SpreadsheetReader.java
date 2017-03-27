@@ -127,7 +127,7 @@ public class SpreadsheetReader {
 
     // Return true if the principalCell (in the sheet(sheetNum) in the row(rowNum)) contains a valid value
     public boolean isEmptyRow(int sheetNum, int rowNum, int principalCell) {
-        return  (readCell(sheetNum, rowNum, principalCell).equals(null)); 
+        return  (readCell(sheetNum, rowNum, principalCell).equals("null") || (readCell(sheetNum, rowNum, principalCell).equals(""))); 
     }
 
     public void close() {

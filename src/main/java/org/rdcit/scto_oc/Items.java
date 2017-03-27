@@ -102,9 +102,10 @@ public class Items {
             return min(initFunction, inputFileRowNum);
         } else if (ifSum(initFunction, inputFileRowNum)) {
             return sum(initFunction, inputFileRowNum);
-        } else if (ifAvg(initFunction, inputFileRowNum)) { 
+        } else if (ifAvg(initFunction, inputFileRowNum)) {
             return avg(initFunction, inputFileRowNum);
-        } else if (ifAvgRG(initFunction, inputFileRowNum)) { 
+        } else if (ifAvgRG(initFunction, inputFileRowNum)) {
+            outputFileWriter.updateCell(ITEMS_SHEET, outputFileWriter.getLastRowNum(ITEMS_SHEET), ITEMS_RESPONSE_TYPE_CELL, "group-calculation");
             return avgRG(initFunction, inputFileRowNum);
         } else {
             return "";
@@ -142,6 +143,9 @@ public class Items {
                 break;
             case "decimal":
                 outputFileWriter.appendNewCell(ITEMS_SHEET, ITEMS_DATA_TYPE_CELL, "REAL");
+                break;
+            case "calculate":
+                outputFileWriter.appendNewCell(ITEMS_SHEET, ITEMS_DATA_TYPE_CELL, "ST");
                 break;
             case "file":
             case "audio":

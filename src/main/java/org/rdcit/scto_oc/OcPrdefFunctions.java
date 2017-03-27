@@ -21,14 +21,12 @@ public class OcPrdefFunctions {
         try {
             String params[] = initFunction.split("if");
             String fieldName = extractFromPattern(params[1], "${", "}");
-            System.out.println("filed name " + fieldName);
             String finalFunc = "func:decode(" + fieldName + ",";
             for (int i = 1; i < params.length; i++) {
                 String[] tmp = params[i].split(",");
                 finalFunc = finalFunc + format(tmp[1]) + "," + format(tmp[2]) + ",";
             }
             finalFunc = replaceLast(finalFunc, ",", "") + ")";
-            System.out.println("Final Func = " + finalFunc);
             return finalFunc;
         } catch (Exception ex) {
             Log.LOGGER.debug("           " + ++readderRowNum + ":Decode function - SCTO : Badly formatted expression.");
@@ -93,7 +91,6 @@ public class OcPrdefFunctions {
             finalFunc = finalFunc + newParam + ",";
         }
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
-        System.out.println("finalFunc = " + finalFunc);
         return finalFunc;
     }
     
@@ -138,7 +135,6 @@ public class OcPrdefFunctions {
             finalFunc = finalFunc + newParam + ",";
         }
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
-        System.out.println("finalFunc = " + finalFunc);
         return finalFunc;
     }
     
@@ -146,10 +142,8 @@ public class OcPrdefFunctions {
         // initFunction = sum(${itemRG}) div count(${RG}) //output = avg(itemRG)
         String finalFunc = "avg(";
         String param = initFunction.split("div")[0].replace("sum", "");
-        System.out.println("param = " + param);
         param = format(extractFromPattern(param, "${", "}"));
         finalFunc = finalFunc + param + ")";
-        System.out.println("finalFunction = " + finalFunc);
         return finalFunc;
     }
     
