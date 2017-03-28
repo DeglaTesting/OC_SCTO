@@ -68,7 +68,7 @@ public class Survey {
         outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_LABEL_CELL, inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_LEFT_ITEM_TEXT_CELL));
         String questionNumber = inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_QUESTION_NUMBER_CELL);
         if (!questionNumber.equals("null")) {
-            String label = questionNumber + " " + inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_LEFT_ITEM_TEXT_CELL);
+            String label = questionNumber + ") " + inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_LEFT_ITEM_TEXT_CELL);
             outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_LABEL_CELL, label);
         }
         String rightItemText = inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_RIGHT_ITEM_TEXT_CELL);
@@ -77,6 +77,7 @@ public class Survey {
         }
         setRequiredCell(readerRowNum, writterRowNum);
         setRelevanceCell(readerRowNum, writterRowNum);
+        setConstraint(readerRowNum, writterRowNum);
     }
 
     void setResponseTypeCell(String itemResponseType, String itemName, int readderRowNum, int writterRowNum) {
@@ -141,7 +142,6 @@ public class Survey {
         } else if (params.length < 2) {
             String controller = params[0];
             if (controller.startsWith("avg")) {
-                // need to check if avg or avgRG
                 outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_CONSTRAINT_CELL, avg(controller, readderRowNum));
             }
         }
@@ -155,19 +155,30 @@ public class Survey {
         }
     }
 
+    void setConstraint(int readderRowNum, int writterRowNum) {
+        String constraint = inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_VALIDATION_CELL);
+        if (!constraint.equals("null")) {
+            if (constraint.startsWith("regexp")) {
+                outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_CONSTRAINT_CELL, reglex(constraint, readderRowNum));
+            }
+        }
+        String constraintMsg = inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_VALIDATION_ERROR_MSG_CELL);
+        if (!constraintMsg.equals("null")) {
+            outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_CONSTRAINT_MSG_CELL, constraintMsg);
+        }
+    }
+
     void setChoicesSheet(String itemName, int readerRowNum) {
         Object[] optionsText = splitWithEscape(inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_RESPONSE_OPTIONS_TEXT_CELL), ",", "\\");
         Object[] optionsValue = splitWithEscape(inputFileReader.readCell(ITEMS_SHEET, readerRowNum, ITEMS_RESPONSE_VALUE_OR_CALCULATIONS_CELL), ",", "\\");
         for (int i = 0; i < optionsText.length; i++) {
             String sOptionText = optionsText[i].toString();
             if (sOptionText.length() > 0) {
-                outputFileWriter.appendNewRow(CHOICES_SHEET);
-                outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_LIST_NAME_CELL, itemName);
-                outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_LABEL_CELL, optionsText[i].toString());
                 if (notEmpty(optionsValue[i].toString())) {
+                    outputFileWriter.appendNewRow(CHOICES_SHEET);
+                    outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_LIST_NAME_CELL, itemName);
                     outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_VALUE_CELL, optionsValue[i].toString());
-                } else {
-                    outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_VALUE_CELL, "null");
+                    outputFileWriter.appendNewCell(CHOICES_SHEET, CHOICES_LABEL_CELL, optionsText[i].toString());
                 }
             }
         }

@@ -16,7 +16,7 @@ import org.rdcit.tools.Log;
  * @author sa841
  */
 public class OcPrdefFunctions {
-    
+
     static String decode(String initFunction, int readderRowNum) {
         try {
             String params[] = initFunction.split("if");
@@ -33,7 +33,7 @@ public class OcPrdefFunctions {
             return "";
         }
     }
-    
+
     static String range(String initFunction, int readderRowNum) {
         String newFunc = "func: range(";
         String[] params = initFunction.split("and");
@@ -44,7 +44,7 @@ public class OcPrdefFunctions {
         }
         return newFunc;
     }
-    
+
     static String max(String initFunction, int readderRow) {
         //initFunction = "max(${f1},${f2})";
         String[] params = initFunction.split(",");
@@ -59,7 +59,7 @@ public class OcPrdefFunctions {
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
     }
-    
+
     static String min(String initFunction, int readderRow) {
         //initFunction = "max(${f1},${f2})";
         String[] params = initFunction.split(",");
@@ -74,11 +74,11 @@ public class OcPrdefFunctions {
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
     }
-    
+
     static boolean ifSum(String initFunction, int readderRow) {
         return patternTester(SUM_PATTERN_MATCHER, initFunction);
     }
-    
+
     static String sum(String initFunction, int readderRow) {
         //initFunction = ${f1} + ${f2}; //finalFunc = "sum(f1,f2,f3)"
         String[] params = initFunction.split("\\+");
@@ -93,7 +93,7 @@ public class OcPrdefFunctions {
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
     }
-    
+
     static boolean ifAvg(String initFunction, int readderRow) {
         boolean avg = false;
         String[] params = initFunction.split("div");
@@ -111,7 +111,7 @@ public class OcPrdefFunctions {
         }
         return avg;
     }
-    
+
     static boolean ifAvgRG(String initFunction, int readderRow) {
         boolean avg = false;
         String[] params = initFunction.split("div");
@@ -122,7 +122,7 @@ public class OcPrdefFunctions {
         }
         return avg;
     }
-    
+
     static String avg(String initFunction, int readderRow) {
         //initFunction = (${f1} + ${f2}) div  2; //finalFunc = "avg(f1,f2)"
         String[] params = initFunction.split("div")[0].split("\\+");
@@ -137,7 +137,7 @@ public class OcPrdefFunctions {
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
     }
-    
+
     static String avgRG(String initFunction, int readderRow) {
         // initFunction = sum(${itemRG}) div count(${RG}) //output = avg(itemRG)
         String finalFunc = "avg(";
@@ -146,10 +146,17 @@ public class OcPrdefFunctions {
         finalFunc = finalFunc + param + ")";
         return finalFunc;
     }
-    
-    public static void main(String[] args) {
-        boolean b = ifAvgRG("sum(${frg}) div count(${RG})", 0);
-        System.out.println("b = " + b);
+
+    static String regex(String initFunction, int readderRow) {
+        //input = regex(.,'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')  output= regexp: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        String regex = splitFirst(initFunction, ",")[1];
+        regex = regex.replaceFirst("'", "");
+        regex = replaceLast(replaceLast(regex, ")", ""), "'", "");
+        return "regexp: /" + regex + "/";
     }
-    
+
+    public static void main(String[] args) {
+        System.out.println("b = " + regex("regex(.,'^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')", 0));
+    }
+
 }

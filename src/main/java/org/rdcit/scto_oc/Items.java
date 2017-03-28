@@ -80,6 +80,7 @@ public class Items {
             setRelevance(relevance, inputFileRowNum, rgFlag);
         }
         setRightItemText(hint);
+        setConstraint(inputFileRowNum);
     }
 
     void setCalculationItem(int inputFileRowNum) {
@@ -238,6 +239,17 @@ public class Items {
             }
         } else {
             Log.LOGGER.error(inputFile.getName() + ":" + ++inputFileRowNum + ":Relevance - OC : Simple Conditional Display does not work inside repeating-group.");
+        }
+    }
+
+    void setConstraint(int readderRowNum) {
+        String constraint = inputFileReader.readCell(SURVEY_SHEET, readderRowNum, SURVEY_CONSTRAINT_CELL);
+        if (!constraint.equals("null")) {
+            outputFileWriter.appendNewCell(ITEMS_SHEET, ITEMS_VALIDATION_CELL, regex(constraint, readderRowNum));
+        }
+        String constraintMsg = inputFileReader.readCell(SURVEY_SHEET, readderRowNum, SURVEY_CONSTRAINT_MSG_CELL);
+        if (!constraintMsg.equals("null")) {
+            outputFileWriter.appendNewCell(ITEMS_SHEET, ITEMS_VALIDATION_ERROR_MSG_CELL, constraintMsg);
         }
     }
 

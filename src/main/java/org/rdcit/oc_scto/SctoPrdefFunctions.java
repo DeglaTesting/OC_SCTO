@@ -116,7 +116,6 @@ public class SctoPrdefFunctions {
             finalFunc = finalFunc + newParams[i] + "+";
         }
         finalFunc = replaceLast(finalFunc, "+", ") div ") + newParams.length;
-        System.out.println("finalFunc = " + finalFunc);
         return finalFunc;
     }
 
@@ -125,12 +124,18 @@ public class SctoPrdefFunctions {
         String finalFunc;
         String rgField = format(initFunction.replace("avg", ""));
         finalFunc = "sum(${" + rgField + "}) div count (${" + repeatingGroupName + "})";
-        System.out.println("finalFunction = " + finalFunc);
         return finalFunc;
     }
 
+    static String reglex(String initFunction, int readderRow) {
+        //input = regexp: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ output= regex(.,'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+        String output = "regex(.,'";
+        initFunction = extractFromPattern(initFunction, "/", "/");
+        return output + initFunction + "')";
+    }
+
     public static void main(String[] args) {
-        avgRG("avg(itemRG)", "RG", 0);
+        System.out.println("" + reglex("regexp: /^/[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}/$/", 0));
     }
 
 }
