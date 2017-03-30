@@ -50,7 +50,7 @@ public class FromOcToScto {
     }
 
     public static void main(String[] args) {
-        FromOcToScto fromOcToScto = new FromOcToScto(new File(workingRepository + "53F_100K_REGISTR_2646_116.xls"));
+        FromOcToScto fromOcToScto = new FromOcToScto(new File(workingRepository + "60F_PMG_SUBJECTS_V11.xls"));
         fromOcToScto.convert();
     }
 }

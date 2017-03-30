@@ -335,4 +335,78 @@ public class Items {
             i++;
         }
     }
-}
+    
+    void setItemsSheet2(){
+      int i = getStartingRow();
+        while (i <= maxSheetRow) {
+            if (!inputFileReader.isEmptyRow(SURVEY_SHEET, i, SURVEY_TYPE_CELL)) {
+                if (inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("begin group")
+                        && (inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_APPEARANCE_CELL).equals("field-list"))) {
+                    setSections(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_LABEL_CELL),
+                            inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_HINT_CELL));
+                    setGroups("defaultGroup", "NON_REPEATING");
+                    String tmpSectionLabel = inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL);
+                    i++;
+                    while (!inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("end group")) {
+                        if (!GROUP_KW_LIST.contains(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL))) {
+                            setItem(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_LABEL_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL),
+                                    setRequiredField(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_REQUIRED_CELL)),
+                                    tmpSectionLabel, "defaultGroup", inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_RELEVANCE_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_HINT_CELL), i, false);
+                        } else {
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                if (inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("begin group")) {
+                    setSections("defaultSection", "Default Section", "");
+                    setGroups(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), "NON_REPEATING");
+                    String tmpGroupLabel = inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL);
+                    i++;
+
+                    while (!inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("end group")) {
+                        if (!GROUP_KW_LIST.contains(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL))) {
+                            setItem(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_LABEL_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL), setRequiredField(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_REQUIRED_CELL)),
+                                    "defaultSection", tmpGroupLabel, inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_RELEVANCE_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_HINT_CELL), i, false);
+                        } else {
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                if (inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("begin repeat")) {
+                    setGroups(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), "GRID");
+                    setSections("defaultSection", "Default Section", "");
+                    String tmpGroupLabel = inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL);
+                    i++;
+                    while (!inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL).equals("end repeat")) {
+                        if (!GROUP_KW_LIST.contains(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL))) {
+                            setItem(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_LABEL_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL), setRequiredField(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_REQUIRED_CELL)),
+                                    "defaultSection", tmpGroupLabel, inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_RELEVANCE_CELL),
+                                    inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_HINT_CELL), i, true);
+                        } else {
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                if (!GROUP_KW_LIST.contains(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL))) {
+                    setGroups("defaultGroup", "NON_REPEATING");
+                    setSections("defaultSection", "Default Section", "");
+                    setItem(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_NAME_CELL), inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_LABEL_CELL),
+                            inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_TYPE_CELL), setRequiredField(inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_REQUIRED_CELL)),
+                            "defaultSection", "defaultGroup", inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_RELEVANCE_CELL),
+                            inputFileReader.readCell(SURVEY_SHEET, i, SURVEY_HINT_CELL), i, false);
+                }
+            }
+            i++;
+        }
+    }
+    
+    
+    }

@@ -64,8 +64,8 @@ public class SctoPrdefFunctions {
             newParams[i] = putIntoPattern(format(params[i]), "${", "}");
         }
         String finalFunc = "max(";
-        for (int i = 0; i < newParams.length; i++) {
-            finalFunc = finalFunc + newParams[i] + ",";
+        for (String newParam : newParams) {
+            finalFunc = finalFunc + newParam + ",";
         }
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
@@ -80,8 +80,8 @@ public class SctoPrdefFunctions {
             newParams[i] = putIntoPattern(format(params[i]), "${", "}");
         }
         String finalFunc = "min(";
-        for (int i = 0; i < newParams.length; i++) {
-            finalFunc = finalFunc + newParams[i] + ",";
+        for (String newParam : newParams) {
+            finalFunc = finalFunc + newParam + ",";
         }
         finalFunc = replaceLast(finalFunc, ",", "").concat(")");
         return finalFunc;
@@ -96,8 +96,8 @@ public class SctoPrdefFunctions {
             newParams[i] = putIntoPattern(format(params[i]), "${", "}");
         }
         String finalFunc = "";
-        for (int i = 0; i < newParams.length; i++) {
-            finalFunc = finalFunc + newParams[i] + "+";
+        for (String newParam : newParams) {
+            finalFunc = finalFunc + newParam + "+";
         }
         finalFunc = replaceLast(finalFunc, "+", "");
         return finalFunc;
@@ -112,8 +112,8 @@ public class SctoPrdefFunctions {
             newParams[i] = putIntoPattern(format(params[i]), "${", "}");
         }
         String finalFunc = "(";
-        for (int i = 0; i < newParams.length; i++) {
-            finalFunc = finalFunc + newParams[i] + "+";
+        for (String newParam : newParams) {
+            finalFunc = finalFunc + newParam + "+";
         }
         finalFunc = replaceLast(finalFunc, "+", ") div ") + newParams.length;
         return finalFunc;
@@ -132,6 +132,11 @@ public class SctoPrdefFunctions {
         String output = "regex(.,'";
         initFunction = extractFromPattern(initFunction, "/", "/");
         return output + initFunction + "')";
+    }
+
+    static String greaterThan(String initFunction, int readderRow) {
+        //input gt(data) // output .>= ${data}
+        return "";
     }
 
     public static void main(String[] args) {
