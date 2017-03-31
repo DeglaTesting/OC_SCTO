@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
  */
 public class Strings {
 
-    // Replace the last occurance of the given reglex in the given String with a new String
     public static String replaceLast(String s, String reglex, String replacement) {
         int lastIndex = s.lastIndexOf(reglex);
         s = s.substring(0, lastIndex);
@@ -38,7 +37,6 @@ public class Strings {
         return arResult.toArray();
     }
 
-    // split the given string just in the first occurance of the given reglex
     public static String[] splitFirst(String s, String reglex) {
         String[] res = new String[2];
         int indexFirst = s.indexOf(reglex);
@@ -47,14 +45,12 @@ public class Strings {
         return res;
         }
 
-    //Replace the old escape specification by a new one
     public static String replaceEscape(String s, String oldEscape, String newEscape) {
         if (s.contains(oldEscape)) {
             s = s.replaceAll(oldEscape, newEscape);
         }
         return s;
     }
-//Remove all the spaces at the end of the String
 
     public static String endTrim(String s) {
         while (s.endsWith(" ")) {
@@ -63,7 +59,6 @@ public class Strings {
         return s;
     }
 
-    //Reomve all the spaces in front of the given string
     public static String startTrim(String s) {
         while (s.startsWith(" ")) {
             s = s.replaceFirst(" ", "");
@@ -75,7 +70,6 @@ public class Strings {
         return s.matches(".*\\w.*");
     }
 
-    // extract the string exsiting inside the given pattern 
     public static String extractFromPattern(String s, String beginPattern, String endPattern) {
         if (!s.startsWith(beginPattern)) {
             s = s.substring(s.indexOf(beginPattern), s.length());
@@ -94,14 +88,11 @@ public class Strings {
     }
     
     public static boolean patternTester(String pattern, String s) {
-        String toTest = s.replaceAll("\\s", "");
-        System.out.println("Totest = "  + toTest);
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(s.replaceAll("\\s", ""));
         return m.matches();
     }
 
-    // input a string with a special characters , output == only the alphanumric characters are returned 
     public static String format(String s) {
         return s.replaceAll("[^\\w]", "");
     }

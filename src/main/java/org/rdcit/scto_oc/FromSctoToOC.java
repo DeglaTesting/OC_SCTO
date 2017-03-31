@@ -54,7 +54,7 @@ public class FromSctoToOC {
     }
 
     public static void main(String[] args) {
-        FromSctoToOC fromSctoToOC = new FromSctoToOC(new File(workingRepository +"60F_PMG_SUBJECTS_V11.xlsx"));
+        FromSctoToOC fromSctoToOC = new FromSctoToOC(new File(workingRepository +"42F_PHENOTYPINGG_V150.xlsx"));
         fromSctoToOC.convert();
     }
 }

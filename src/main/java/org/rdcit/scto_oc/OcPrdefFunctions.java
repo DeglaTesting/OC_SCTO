@@ -46,7 +46,6 @@ public class OcPrdefFunctions {
     }
 
     static String max(String initFunction, int readderRow) {
-        //initFunction = "max(${f1},${f2})";
         String[] params = initFunction.split(",");
         String[] newParams = new String[params.length];
         for (int i = 0; i < params.length; i++) {
@@ -61,7 +60,6 @@ public class OcPrdefFunctions {
     }
 
     static String min(String initFunction, int readderRow) {
-        //initFunction = "max(${f1},${f2})";
         String[] params = initFunction.split(",");
         String[] newParams = new String[params.length];
         for (int i = 0; i < params.length; i++) {
@@ -80,7 +78,6 @@ public class OcPrdefFunctions {
     }
 
     static String sum(String initFunction, int readderRow) {
-        //initFunction = ${f1} + ${f2}; //finalFunc = "sum(f1,f2,f3)"
         String[] params = initFunction.split("\\+");
         String[] newParams = new String[params.length];
         for (int i = 0; i < params.length; i++) {
@@ -124,7 +121,6 @@ public class OcPrdefFunctions {
     }
 
     static String avg(String initFunction, int readderRow) {
-        //initFunction = (${f1} + ${f2}) div  2; //finalFunc = "avg(f1,f2)"
         String[] params = initFunction.split("div")[0].split("\\+");
         String[] newParams = new String[params.length];
         for (int i = 0; i < params.length; i++) {
@@ -139,7 +135,6 @@ public class OcPrdefFunctions {
     }
 
     static String avgRG(String initFunction, int readderRow) {
-        // initFunction = sum(${itemRG}) div count(${RG}) //output = avg(itemRG)
         String finalFunc = "avg(";
         String param = initFunction.split("div")[0].replace("sum", "");
         param = format(extractFromPattern(param, "${", "}"));
@@ -148,15 +143,10 @@ public class OcPrdefFunctions {
     }
 
     static String regex(String initFunction, int readderRow) {
-        //input = regex(.,'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')  output= regexp: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         String regex = splitFirst(initFunction, ",")[1];
         regex = regex.replaceFirst("'", "");
         regex = replaceLast(replaceLast(regex, ")", ""), "'", "");
         return "regexp: /" + regex + "/";
-    }
-
-    public static void main(String[] args) {
-        System.out.println("b = " + regex("regex(.,'^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')", 0));
     }
 
 }

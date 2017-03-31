@@ -49,11 +49,17 @@ public class Survey {
             setTextResponseType(inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_DATA_TYPE_CELL), writterRowNum);
             outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_READ_ONLY_CELL, "yes");
             setCalculationRGCell(readderRowNum, writterRowNum);
-        } else if (itemResponseType.equals("single-select") || itemResponseType.equals("radio")) {
+        } else if (itemResponseType.equals("single-select")) {
             String choiceListName = inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_RESPONSE_LABEL_CELL);
             outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_TYPE_CELL, "select_one ".concat(choiceListName));
+            outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_APPEARANCE_CELL, "minimal");
             setChoicesSheet(choiceListName, readderRowNum);
-        } else if (itemResponseType.equals("multi-select") || itemResponseType.equals("checkbox")) {
+        } else if (itemResponseType.equals("radio")) {
+            String choiceListName = inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_RESPONSE_LABEL_CELL);
+            outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_TYPE_CELL, "select_multiple ".concat(choiceListName));
+            setChoicesSheet(choiceListName, readderRowNum);
+        }
+        else if (itemResponseType.equals("multi-select") || itemResponseType.equals("checkbox")) {
             String choiceListName = inputFileReader.readCell(ITEMS_SHEET, readderRowNum, ITEMS_RESPONSE_LABEL_CELL);
             outputFileWriter.writeNewCell(SURVEY_SHEET, writterRowNum, SURVEY_TYPE_CELL, "select_multiple ".concat(choiceListName));
             setChoicesSheet(choiceListName, readderRowNum);

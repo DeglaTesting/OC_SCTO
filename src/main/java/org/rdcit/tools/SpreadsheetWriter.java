@@ -117,6 +117,12 @@ public class SpreadsheetWriter {
         return rowNumber;
     }
 
+    public String getLastFieldAdd(int sheetNum, int cellNum) {
+        int lastRow = workbook.getSheetAt(sheetNum).getLastRowNum();
+        String lastField = workbook.getSheetAt(sheetNum).getRow(lastRow).getCell(cellNum).getStringCellValue();
+        return lastField;
+    }
+
     public void close(File outputFile) {
         try {
             FileOutputStream fos = new FileOutputStream(outputFile);
